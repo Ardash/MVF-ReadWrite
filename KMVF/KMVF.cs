@@ -90,6 +90,8 @@ namespace Kovalenko.Classes {
     #endregion Constructor
 
     #region Public Functions
+    public void close() { serialClose(); }
+    
     // Initialization Functions
     //
     //  frontEject 
@@ -217,6 +219,10 @@ namespace Kovalenko.Classes {
 
     ushort BytesToUShort(byte[] bytes) {
       return (ushort)(bytes[0] * 0x100 + bytes[1]);
+    }
+
+    void serialClose() {
+      if ((hPort != null) && (hPort.IsOpen)) hPort.Close();
     }
 
     void serialOpen(string port, kmvf_speed speed) {

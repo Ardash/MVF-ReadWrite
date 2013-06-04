@@ -89,7 +89,7 @@ namespace KCardRW {
       chkFrontEject.Checked = settings.ejFront;
       chkRearEject.Checked = !settings.ejFront;
 
-
+      if (rdr != null) rdr.close();
       rdr = new KMVF(settings.port, settings.speed);
       string result = "";
       consoleAddLine(msgInit);
@@ -392,8 +392,10 @@ namespace KCardRW {
         fs.Read(b, 0, len);
         fs.Close();
         fromBytes(b);
+      } catch {
+        settings.port = "COM1";
+        settings.speed = KMVF.kmvf_speed._19200;
       }
-      catch { }
     }
   }
 }
